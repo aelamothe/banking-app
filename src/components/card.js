@@ -1,8 +1,7 @@
 import React from "react";
-import { Card } from "react-bootstrap";
 
 // inclusion of a Card component that all our other components will be able to reference the info of
-function BankCard(props) {
+function Card(props) {
   // check if background color is set -- if not, set bg color
   function classes() {
     const bg = props.bgcolor ? "bg-" + props.bgcolor : " ";
@@ -23,4 +22,4 @@ function BankCard(props) {
   );
 }
 
-export default BankCard;
+export default Card;

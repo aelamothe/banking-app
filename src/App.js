@@ -35,12 +35,12 @@ function App() {
       >
         <CurrentUser.Provider value={{ currUser: "" }}>
           <Routes>
-            <Route path="/" exact component={Home} />
-            <Route path="/CreateAccount" component={CreateAccount} />
-            <Route path="/login" component={Login} />
-            <Route path="/deposit" component={Deposit} />
-            <Route path="/withdraw" component={Withdraw} />
-            <Route path="/alldata" component={AllData} />
+            <Route path="/" exact element={<Home />} />
+            <Route path="/CreateAccount" element={<CreateAccount />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/deposit" element={<Deposit />} />
+            <Route path="/withdraw" element={<Withdraw />} />
+            <Route path="/alldata" element={<AllData />} />
           </Routes>
         </CurrentUser.Provider>
       </UserContext.Provider>

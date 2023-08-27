@@ -1,8 +1,8 @@
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        Bad Bank
+      <a className="navbar-brand" href="#/">
+        Ana's Bank
       </a>
       <button
         className="navbar-toggler"
@@ -28,9 +28,6 @@ function NavBar() {
           </a>
           <a className="nav-item nav-link" href="#/withdraw/">
             Withdraw
-          </a>
-          <a className="nav-item nav-link" href="#/balance/">
-            Balance
           </a>
           <a className="nav-item nav-link" href="#/alldata/">
             All Data
