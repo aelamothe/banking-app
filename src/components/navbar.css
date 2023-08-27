@@ -1,0 +1,35 @@
+nav {
+    background: #DC1431;
+    display: flex;
+    height: auto;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+
+.logo {
+    height: auto;
+    width: auto;
+}
+
+.nav-pill {
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.nav-pill:hover {
+    color: #000;
+    background: #fff;
+    padding: 2px;
+}
+
+.logo {
+    font-size: 2em;
+}
+
+.active {
+    color: #000 !important;
+    background: #fff !important;
+    font-weight: bold !important;
+    padding: 10px;
+}

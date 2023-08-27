@@ -1,4 +1,5 @@
 import "./App.css";
+import "./components/navbar.css";
 import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { UserContext, CurrentUser } from "./components/context";
