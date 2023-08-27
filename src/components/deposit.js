@@ -24,7 +24,7 @@ function Deposit() {
     // if not logged in, return
     if (loggedInStatus.currUser === "") {
       setStatus("Error: please log in");
-      setTimeout(() => setStatus(""), 5000);
+      setTimeout(() => setStatus(""), 1000);
       return false;
     }
     setTotalState(thisUser.balance);
@@ -33,6 +33,7 @@ function Deposit() {
   // validated deposit
   function validated(amount) {
     // update the total based on the logged in user's account
+    console.log(loggedIn());
     if (amount <= 0) {
       setStatus("Please enter a number greater than 0");
       return false;
@@ -74,7 +75,9 @@ function Deposit() {
                 id="deposit"
                 placeholder="Deposit Amount"
                 value={deposit}
-                onChange={(e) => setDeposit(e.currentTarget.value)}
+                onChange={(e) => {
+                  setDeposit(e.currentTarget.value);
+                }}
               />
               <br />
               <button

@@ -12,7 +12,9 @@ function Card(props) {
   // check for existence of properties, and add to page if exists
   return (
     <div className={classes()} id="card">
-      <div className="card-header">{props.header}</div>
+      <div className="card-header" style={{ fontSize: "1.5em" }}>
+        {props.header}
+      </div>
       <div className="card-body">
         {props.title && <h5 className="card-title">{props.title}</h5>}
         {props.text && <p className="card-title">{props.text}</p>}

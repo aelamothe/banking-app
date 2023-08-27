@@ -6,14 +6,14 @@ import { UserContext, CurrentUser } from "./context";
 function Withdraw() {
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
-  const [withdraw, setwithdraw] = React.useState(0);
+  const [withdraw, setWithdraw] = React.useState(0);
   const [totalState, setTotalState] = React.useState(0);
   const ctx = React.useContext(UserContext);
   const loggedInStatus = React.useContext(CurrentUser);
   let thisUser = ctx.users.find(findUser);
 
   function clearForm() {
-    setwithdraw(0);
+    setWithdraw(0);
     setShow(true);
   }
 
@@ -39,6 +39,7 @@ function Withdraw() {
     }
     if (amount > thisUser.balance) {
       setStatus("Please ensure sufficient funds for withdrawal");
+      alert("Insufficient funds");
       return false;
     }
     thisUser.balance = Number(thisUser.balance);
@@ -78,7 +79,9 @@ function Withdraw() {
                 id="withdraw"
                 placeholder="Withdraw Amount"
                 value={withdraw}
-                onChange={(e) => setwithdraw(e.currentTarget.value)}
+                onChange={(e) => {
+                  setWithdraw(e.currentTarget.value);
+                }}
               />
               <br />
               <button

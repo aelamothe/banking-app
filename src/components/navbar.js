@@ -1,28 +1,29 @@
+import React from "react";
 import "./navbar.css";
 import Tooltip from "./tooltip";
 import { useState } from "react";
 import logo from "./logo.png";
+import { UserContext, CurrentUser } from "./context";
 
 function NavBar() {
   const [active, setActive] = useState("");
-  const handleClick = (event) => {
-    setActive(event.target.id);
-  };
+  const handleClick = (event) => setActive(event.target.id);
 
   return (
     <nav>
       <div>
         <div>
-          <Tooltip content="Home" direction="bottom">
-            <img className="logo-img" src={logo} href="#/" />
-          </Tooltip>
+          <img
+            className="logo-img"
+            src={logo}
+            href="#/"
+            alt="Bank of Anastasia"
+          />
           <Tooltip content="Home" direction="bottom">
             <a
               onClick={handleClick}
               key={1}
-              className={
-                "bank-name nav-pill " + (active === "1" ? "active" : undefined)
-              }
+              className={"bank-name nav-pill "}
               id={"1"}
               href="#/"
             >

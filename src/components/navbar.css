@@ -34,13 +34,13 @@ nav {
     text-decoration: none;
 }
 
-.bank-name {
-    font-size: 1.5em;
-}
-
 .active {
     color: #000 !important;
     background: #fff !important;
     font-weight: bold !important;
     padding: 10px;
+}
+
+.bank-name {
+    font-size: 1.5em;
 }
