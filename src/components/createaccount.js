@@ -32,6 +32,13 @@ function CreateAccount() {
       email: email,
       password: password,
     };
+    let duplicate = ctx.users.map((a) => a.email);
+    // validateds the fields by checking for empty fields
+    if (duplicate.indexOf(newAccount.email) >= 0) {
+      setStatus("Error: Duplicate email");
+      setTimeout(() => setStatus(""), 5000);
+      return false;
+    }
 
     userSchema
       .validate(newAccount)
@@ -40,8 +47,9 @@ function CreateAccount() {
         setDisabled(false);
       })
       .catch(function (err) {
-        console.log(err);
+        setStatus(err.errors[0]);
         setDisabled(true);
+        setTimeout(() => setStatus(""), 5000);
       });
 
     console.log(disabled);
