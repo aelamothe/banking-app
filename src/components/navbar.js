@@ -1,3 +1,5 @@
+import "../App.css";
+
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,7 +19,7 @@ function NavBar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <a className="nav-item nav-link" href="#/CreateAccount/">
+          <a className="nav-item nav-link " href="#/CreateAccount/">
             Create Account
           </a>
           <a className="nav-item nav-link" href="#/login/">
