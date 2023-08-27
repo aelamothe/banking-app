@@ -1,40 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
-import { UserContext, CurrentUser } from "./context";
+import { UserContext } from "./context";
+import * as yup from "yup";
 
 function CreateAccount() {
   const [show, setShow] = React.useState(true);
+  const [disabled, setDisabled] = React.useState(true);
   const [status, setStatus] = React.useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const ctx = React.useContext(UserContext);
 
-  function validated(field, label) {
-    // array for tracking duplicates
-    let duplicate = ctx.users.map((a) => a.email);
-    // validateds the fields by checking for empty fields
-    if (!field) {
-      setStatus("Error: " + label);
-      setTimeout(() => setStatus(""), 5000);
-      return false;
-    }
-    // check if account with this email already exists
-    else if (label === "email" && duplicate.indexOf(email) >= 0) {
-      setStatus("Error: Duplicate " + label);
-      setTimeout(() => setStatus(""), 5000);
-      return false;
-    } else return true;
+  // defining yup schema to validate our form
+  const userSchema = yup.object().shape({
+    // name can not be an empty string so we will use the required function
+    name: yup.string().required(),
+    // email can not be an empty string so we will use the required function
+    email: yup.string().email().required(),
+    // password can not be an empty string so we will use the required function. Also, we have used the `min` function to set the minimum length of the password. Yup passwords by default handle the conditions of at least one upper case, at least one lower case, and at least one special character in the password
+    password: yup.string().min(8).required(),
+  });
+
+  // Function which will validate the input data whenever submit button is clicked.
+  async function validated() {
+    // creating a form data object
+
+    let newAccount = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    userSchema
+      .validate(newAccount)
+      .then(function (value) {
+        console.log(value); // new account info
+        setDisabled(false);
+      })
+      .catch(function (err) {
+        console.log(err);
+        setDisabled(true);
+      });
+
+    console.log(disabled);
   }
 
-  function handleCreate() {
+  function handleSubmit() {
     console.log(name, email, password);
-    // return early if any of the validation checks fail
-    if (!validated(name, "name")) return;
-    if (!validated(email, "email")) return;
-    if (!validated(password, "password")) return;
-    // if all is validatedd, then add the users to our contextual list  of users
+    validated();
+    // if all is validated, then add the users to our contextual list  of users
     ctx.users.push({ name, email, password, balance: 100 });
     console.log(ctx.users);
     // hide our initial form
@@ -67,7 +83,10 @@ function CreateAccount() {
               id="name"
               placeholder="Enter name"
               value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
+              onChange={(e) => {
+                setName(e.currentTarget.value);
+                validated();
+              }}
             />
             <br />
             Email
@@ -78,7 +97,10 @@ function CreateAccount() {
               id="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+                validated();
+              }}
             />
             Password
             <br />
@@ -88,13 +110,18 @@ function CreateAccount() {
               id="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
+              onChange={(e) => {
+                setPassword(e.currentTarget.value);
+                validated();
+              }}
             />
             <br />
             <button
               type="submit"
-              className="btn btn-light"
-              onClick={handleCreate}
+              id="submit-btn"
+              className={"btn btn-light "}
+              onClick={handleSubmit}
+              disabled={disabled}
             >
               Create Account
             </button>

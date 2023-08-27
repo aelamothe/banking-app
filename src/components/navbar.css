@@ -1,3 +1,10 @@
+#card {
+    margin-top: 40px;
+    margin-left: 25%;
+    max-width: 50%;
+    text-align: center;
+}
+
 nav {
     background: #DC1431;
     display: flex;
@@ -6,25 +13,29 @@ nav {
     padding: 1em;
 }
 
-.logo {
-    height: auto;
+.logo-img {
+    height: 2.5em;
     width: auto;
+    -webkit-filter: invert(1);
+    vertical-align: bottom;
 }
 
 .nav-pill {
     color: white;
     font-weight: bold;
     margin: 10px;
+    text-decoration: none;
 }
 
 .nav-pill:hover {
     color: #000;
     background: #fff;
     padding: 2px;
+    text-decoration: none;
 }
 
-.logo {
-    font-size: 2em;
+.bank-name {
+    font-size: 1.5em;
 }
 
 .active {

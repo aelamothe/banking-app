@@ -8,12 +8,13 @@ function Home() {
     <Card
       bgcolor="warning"
       txtcolor="white"
-      header="Ana's Bank Landing Page"
-      title="Welcome to Ana's bank!"
+      header="Bank of Anastasia"
+      title="Welcome to the Bank of Anastasia!"
       text="Please create an account to begin"
       body={
         <>
-          <img src={bank} className="img-fluid" alt="Responsive image" />
+          <img src={bank} style={{ maxHeight: "20em" }} alt="Bank imagery" />
+          <br />
           <Link to="/CreateAccount" className="btn btn-light link">
             Create Account
           </Link>

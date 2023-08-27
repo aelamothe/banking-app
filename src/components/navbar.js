@@ -1,6 +1,7 @@
 import "./navbar.css";
 import Tooltip from "./tooltip";
 import { useState } from "react";
+import logo from "./logo.png";
 
 function NavBar() {
   const [active, setActive] = useState("");
@@ -13,14 +14,14 @@ function NavBar() {
       <div>
         <div>
           <Tooltip content="Home" direction="bottom">
-            <img className="logo" src="./logo.png" />
+            <img className="logo-img" src={logo} href="#/" />
           </Tooltip>
           <Tooltip content="Home" direction="bottom">
             <a
               onClick={handleClick}
               key={1}
               className={
-                "logo nav-pill " + (active === "1" ? "active" : undefined)
+                "bank-name nav-pill " + (active === "1" ? "active" : undefined)
               }
               id={"1"}
               href="#/"
