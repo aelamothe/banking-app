@@ -10,7 +10,7 @@ function Deposit() {
   const [totalState, setTotalState] = React.useState(0);
   const ctx = React.useContext(UserContext);
   const loggedInStatus = React.useContext(CurrentUser);
-  let thisUser = ctx.users.find(findUser);
+  const thisUser = ctx.users.find(findUser);
 
   function clearForm() {
     setDeposit(0);
@@ -18,17 +18,24 @@ function Deposit() {
   }
 
   function findUser(u) {
+    console.log(u);
     return u.email === loggedInStatus.currUser;
   }
   function loggedIn() {
     // if not logged in, return
-    if (loggedInStatus.currUser === "") {
+    if (!thisUser) {
+      console.log(thisUser);
+      console.log(loggedInStatus.currUser);
       setStatus("Error: please log in");
       setTimeout(() => setStatus(""), 1000);
       return false;
     }
-    setTotalState(thisUser.balance);
-    return true;
+    if (thisUser.balance) {
+      console.log("supposedly we have a user");
+      setTotalState(thisUser.balance);
+      return true;
+    }
+    return false;
   }
   // validated deposit
   function validated(amount) {
@@ -63,6 +70,9 @@ function Deposit() {
       bgcolor="success"
       header="Deposit"
       status={status}
+      text={
+        <>Current Balance: ${loggedIn && thisUser ? thisUser.balance : 0}</>
+      }
       body={
         loggedIn ? (
           show ? (

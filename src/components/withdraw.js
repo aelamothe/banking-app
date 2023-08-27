@@ -10,7 +10,7 @@ function Withdraw() {
   const [totalState, setTotalState] = React.useState(0);
   const ctx = React.useContext(UserContext);
   const loggedInStatus = React.useContext(CurrentUser);
-  let thisUser = ctx.users.find(findUser);
+  const thisUser = ctx.users.find(findUser);
 
   function clearForm() {
     setWithdraw(0);
@@ -18,21 +18,29 @@ function Withdraw() {
   }
 
   function findUser(u) {
+    console.log(u);
     return u.email === loggedInStatus.currUser;
   }
   function loggedIn() {
     // if not logged in, return
-    if (loggedInStatus.currUser === "") {
+    if (!thisUser) {
+      console.log(thisUser);
+      console.log(loggedInStatus.currUser);
       setStatus("Error: please log in");
-      setTimeout(() => setStatus(""), 5000);
+      setTimeout(() => setStatus(""), 1000);
       return false;
     }
-    setTotalState(thisUser.balance);
-    return true;
+    if (thisUser.balance) {
+      console.log("supposedly we have a user");
+      setTotalState(thisUser.balance);
+      return true;
+    }
+    return false;
   }
   // validated withdraw
   function validated(amount) {
     // update the total based on the logged in user's account
+    console.log(loggedIn());
     if (amount <= 0) {
       setStatus("Please enter a number greater than 0");
       return false;
@@ -42,6 +50,7 @@ function Withdraw() {
       alert("Insufficient funds");
       return false;
     }
+
     thisUser.balance = Number(thisUser.balance);
     amount = Number(amount);
     thisUser.balance -= amount;
@@ -64,9 +73,12 @@ function Withdraw() {
   // if show = false, provide option to submit another transaction
   return (
     <Card
-      bgcolor="warning"
+      bgcolor="success"
       header="Withdraw"
       status={status}
+      text={
+        <>Current Balance: ${loggedIn && thisUser ? thisUser.balance : 0}</>
+      }
       body={
         loggedIn ? (
           show ? (
@@ -97,10 +109,6 @@ function Withdraw() {
               <h5>Success!</h5>
               <p>Your new balance is ${totalState}</p>
               <p>Would you like to make another transaction?</p>
-              <Link to="/deposit" className="btn btn-light">
-                Deposit
-              </Link>
-              <> </>
               <button
                 type="submit"
                 className="btn btn-light"
@@ -108,7 +116,11 @@ function Withdraw() {
               >
                 Withdraw
               </button>
-
+              <> </>
+              <Link to="/withdraw" className="btn btn-light">
+                Withdraw
+              </Link>
+              <br />
               <br />
               <Link to="/CreateAccount" className="btn btn-light">
                 Logout
@@ -119,7 +131,7 @@ function Withdraw() {
           <>
             <h5>Please log in!</h5>
             <br />
-            <br />
+            <> </>
             <Link to="/login" className="btn btn-light">
               Login
             </Link>
