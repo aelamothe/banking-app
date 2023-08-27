@@ -117,8 +117,8 @@ function Withdraw() {
                 Withdraw
               </button>
               <> </>
-              <Link to="/withdraw" className="btn btn-light">
-                Withdraw
+              <Link to="/deposit" className="btn btn-light">
+                Deposit
               </Link>
               <br />
               <br />
