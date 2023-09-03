@@ -106,6 +106,7 @@ function Transaction(props) {
                 type="submit"
                 className="btn btn-light"
                 onClick={handleSubmit}
+                disabled={!validated}
               >
                 Submit
               </button>
