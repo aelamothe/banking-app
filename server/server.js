@@ -1,7 +1,9 @@
+// initializes server and defines API endpoints
 const express = require("express");
 const path = require("path");
 const cors = require("cors"); // Import the cors package
 const { connectToDatabase } = require("./db");
+const User = require("./schema.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,8 +11,37 @@ const port = process.env.PORT || 3000;
 // Use CORS middleware to enable cross-origin requests
 app.use(cors());
 
+// Parse JSON bodies
+app.use(express.json());
+
 // Serve static files from the 'build' folder
 app.use(express.static(path.join(__dirname, "../build")));
+
+// Add a POST route to create a new user
+app.post("/api/users", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    // Checking if the user already exists
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ msg: "User already exists" });
+    }
+    // Creating a new user
+    user = new User({
+      name,
+      email,
+      password,
+      balance: 100, // You can set a default balance here
+    });
+
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error: " + err.message);
+  }
+});
 
 // Define a catch-all route to serve the React app
 app.get("*", (req, res) => {

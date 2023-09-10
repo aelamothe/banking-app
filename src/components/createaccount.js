@@ -15,30 +15,29 @@ function CreateAccount() {
 
   // defining yup schema to validate our form
   const userSchema = yup.object().shape({
-    // name can not be an empty string so we will use the required function
+    // name can not be an empty string
     name: yup.string().required(),
-    // email can not be an empty string so we will use the required function
-    email: yup.string().email().required(),
-    // password can not be an empty string so we will use the required function. Also, we have used the `min` function to set the minimum length of the password. Yup passwords by default handle the conditions of at least one upper case, at least one lower case, and at least one special character in the password
+    // email can not be an empty string and cannot be a duplicate
+    email: yup
+      .string()
+      .email()
+      .required()
+      .test("is-unique", "Email already exists. Please log in.", (value) => {
+        let duplicate = ctx.users.map((a) => a.email);
+        return duplicate.indexOf(value) === -1;
+      }),
+    // password can not be an empty string. Also, we have used the `min` function to set the minimum length of the password. Yup passwords by default handle the conditions of at least one upper case, at least one lower case, and at least one special character in the password
     password: yup.string().min(8).required(),
   });
 
   // Function which will validate the input data whenever submit button is clicked.
   async function validated() {
     // creating a form data object
-
     let newAccount = {
       name: name,
       email: email,
       password: password,
     };
-    let duplicate = ctx.users.map((a) => a.email);
-    // validateds the fields by checking for empty fields
-    if (duplicate.indexOf(newAccount.email) >= 0) {
-      setStatus("Error: Duplicate email");
-      setTimeout(() => setStatus(""), 5000);
-      return false;
-    }
 
     userSchema
       .validate(newAccount)
@@ -49,20 +48,53 @@ function CreateAccount() {
       .catch(function (err) {
         setStatus(err.errors[0]);
         setDisabled(true);
-        setTimeout(() => setStatus(""), 5000);
+        setTimeout(() => status, 5000);
       });
 
     console.log(disabled);
   }
-
+  /*
   function handleSubmit() {
     console.log(name, email, password);
-    validated();
     // if all is validated, then add the users to our contextual list  of users
-    ctx.users.push({ name, email, password, balance: 100 });
-    console.log(ctx.users);
-    // hide our initial form
-    setShow(false);
+
+    validated();
+    if (!disabled) {
+      ctx.users.push({ name, email, password, balance: 100 });
+      console.log(ctx.users);
+      // hide our initial form
+      setShow(false);
+    }
+  }
+  */
+
+  async function handleSubmit() {
+    console.log(name, email, password);
+    await validated();
+    // if all is validated, then add the users to our contextual list  of users
+    if (!disabled) {
+      try {
+        const response = await fetch("/api/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
+        // handles error responses that may not be in JSON format
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setShow(false);
+        } else {
+          const text = await response.text();
+          setStatus(text || "Error creating account");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setStatus("Error creating account");
+      }
+    }
   }
 
   function clearForm() {
@@ -113,7 +145,7 @@ function CreateAccount() {
             Password
             <br />
             <input
-              type="input"
+              type="password"
               className="form-control"
               id="password"
               placeholder="Enter password"
