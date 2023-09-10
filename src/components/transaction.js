@@ -1,47 +1,72 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
-import { UserContext, CurrentUser } from "./context";
+import { CurrentUser } from "./context";
 
 function Transaction(props) {
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
   const [transaction, setTransaction] = React.useState(0);
   const [totalState, setTotalState] = React.useState(0);
-  const ctx = React.useContext(UserContext);
   const loggedInStatus = React.useContext(CurrentUser);
-  const thisUser = ctx.users.find(findUser);
+  const [thisUser, setThisUser] = React.useState(null);
   const transactionType = props.transactionType;
+
+  const fetchUserData = useCallback(async (email) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/users/${email}`);
+      const userData = await response.json();
+      setThisUser(userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setStatus("Error fetching user data.");
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchUserData(loggedInStatus.currUser);
+  }, [loggedInStatus.currUser, fetchUserData]);
+
+  async function updateBalance(email, newBalance) {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/users/updateBalance",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, newBalance }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Balance updated on server:", data);
+    } catch (error) {
+      console.error("Error updating balance on server:", error);
+      setStatus("Error updating balance on server.");
+    }
+  }
 
   function clearForm() {
     setTransaction(0);
     setShow(true);
   }
 
-  function findUser(u) {
-    console.log(u);
-    return u.email === loggedInStatus.currUser;
-  }
   function loggedIn() {
-    // if not logged in, return
     if (!thisUser) {
-      console.log(thisUser);
-      console.log(loggedInStatus.currUser);
       setStatus("Error: please log in");
-      setTimeout(() => setStatus(""), 1000);
+      setTimeout(() => setStatus(""), 5000);
       return false;
     }
-    if (thisUser.balance) {
-      console.log("supposedly we have a user");
+    if (thisUser.balance !== undefined) {
       setTotalState(thisUser.balance);
       return true;
     }
     return false;
   }
-  // validated transaction
+
   function validated(amount) {
-    // update the total based on the logged in user's account
-    console.log(loggedIn());
     if (!(transactionType === "deposit" || transactionType === "withdraw")) {
       setStatus("Select a valid transaction");
       return false;
@@ -61,18 +86,15 @@ function Transaction(props) {
     if (transactionType === "withdraw") thisUser.balance -= amount;
     else thisUser.balance += amount;
     setTotalState(thisUser.balance);
+
     return true;
   }
 
-  // update total balance
   function handleSubmit(event) {
-    console.log(ctx.users);
-
-    // return early if any of the validation checks fail
+    event.preventDefault();
     if (!loggedIn()) return;
     if (!validated(transaction)) return;
-    event.preventDefault();
-    // hide our initial form
+    updateBalance(loggedInStatus.currUser, thisUser.balance);
     setShow(false);
   }
 

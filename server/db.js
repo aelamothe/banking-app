@@ -5,14 +5,6 @@ const mongoose = require("mongoose");
 const uri =
   "mongodb+srv://aelamothe:HyuPkyDt0ELbiNRr@anastasia-bankingapp.s8yjk2o.mongodb.net/users?retryWrites=true&w=majority";
 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: "1",
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
 async function connectToDatabase() {
   try {
     await mongoose.connect(uri, {

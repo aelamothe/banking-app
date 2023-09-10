@@ -54,6 +54,21 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+app.get("/api/users/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error: " + err.message);
+  }
+});
+
 // Endpoint for verifying user login
 app.post("/api/login", async (req, res) => {
   try {
@@ -69,6 +84,34 @@ app.post("/api/login", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: "error", message: "Server error" });
+  }
+});
+
+// Endpoint for updating user balance
+app.post("/api/users/updateBalance", async (req, res) => {
+  try {
+    const { email, newBalance } = req.body;
+
+    if (!email || newBalance === undefined) {
+      return res
+        .status(400)
+        .json({ error: "Email and new balance are required" });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.balance = newBalance;
+
+    await user.save();
+
+    res.json({ message: "Balance updated", user });
+  } catch (error) {
+    console.error("Error updating balance:", error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 

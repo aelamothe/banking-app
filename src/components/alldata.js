@@ -5,7 +5,7 @@ function AllData() {
   const [users, setUsers] = useState([]);
   const gridStyles = {
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
+    gridTemplateColumns: "repeat(4, 1fr)",
   };
   const headerRow = {
     fontWeight: "bold",
@@ -57,6 +57,7 @@ function AllData() {
               <div style={headerRow}>Name</div>
               <div style={headerRow}>Email</div>
               <div style={headerRow}>Password</div>
+              <div style={headerRow}>Balance</div>
             </div>
             <br />
             {users.map((user, i) => (
@@ -64,6 +65,7 @@ function AllData() {
                 <div>{user.name}</div>
                 <div>{user.email}</div>
                 <div>{user.password}</div>
+                <div>${user.balance}</div>
               </div>
             ))}
           </div>
