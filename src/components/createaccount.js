@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
-import { UserContext } from "./context";
 import * as yup from "yup";
 
 function CreateAccount() {
@@ -11,21 +10,13 @@ function CreateAccount() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const ctx = React.useContext(UserContext);
 
   // defining yup schema to validate our form
   const userSchema = yup.object().shape({
     // name can not be an empty string
     name: yup.string().required(),
     // email can not be an empty string and cannot be a duplicate
-    email: yup
-      .string()
-      .email()
-      .required()
-      .test("is-unique", "Email already exists. Please log in.", (value) => {
-        let duplicate = ctx.users.map((a) => a.email);
-        return duplicate.indexOf(value) === -1;
-      }),
+    email: yup.string().email().required(),
     // password can not be an empty string. Also, we have used the `min` function to set the minimum length of the password. Yup passwords by default handle the conditions of at least one upper case, at least one lower case, and at least one special character in the password
     password: yup.string().min(8).required(),
   });
@@ -53,20 +44,6 @@ function CreateAccount() {
 
     console.log(disabled);
   }
-  /*
-  function handleSubmit() {
-    console.log(name, email, password);
-    // if all is validated, then add the users to our contextual list  of users
-
-    validated();
-    if (!disabled) {
-      ctx.users.push({ name, email, password, balance: 100 });
-      console.log(ctx.users);
-      // hide our initial form
-      setShow(false);
-    }
-  }
-  */
 
   async function handleSubmit() {
     console.log(name, email, password);
@@ -81,14 +58,13 @@ function CreateAccount() {
           },
           body: JSON.stringify({ name, email, password }),
         });
-        // handles error responses that may not be in JSON format
         if (response.ok) {
           const data = await response.json();
           console.log(data);
           setShow(false);
         } else {
-          const text = await response.text();
-          setStatus(text || "Error creating account");
+          const data = await response.json();
+          setStatus(data.msg || "Error creating account");
         }
       } catch (error) {
         console.error("Error:", error);

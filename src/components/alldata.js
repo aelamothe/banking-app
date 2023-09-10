@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./card";
-import { UserContext } from "./context";
 
 function AllData() {
-  const ctx = React.useContext(UserContext);
+  const [users, setUsers] = useState([]);
   const gridStyles = {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
@@ -13,6 +12,36 @@ function AllData() {
     color: "white",
     font: "3em",
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = "/api/users";
+      console.log("Fetching data from URL:", url);
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          console.error("Failed to fetch users, status:", response.status);
+          const responseText = await response.text();
+          console.error("Response text:", responseText);
+          return;
+        }
+
+        const responseText = await response.text();
+        try {
+          const data = JSON.parse(responseText);
+          setUsers(data);
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          console.error("Response text:", responseText);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Card
@@ -30,7 +59,7 @@ function AllData() {
               <div style={headerRow}>Password</div>
             </div>
             <br />
-            {ctx.users.map((user, i) => (
+            {users.map((user, i) => (
               <div style={gridStyles} key={i}>
                 <div>{user.name}</div>
                 <div>{user.email}</div>

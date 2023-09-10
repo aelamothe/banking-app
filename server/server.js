@@ -43,7 +43,36 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-// Define a catch-all route to serve the React app
+// Endpoint for GET user data
+app.get("/api/users", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error: " + err.message);
+  }
+});
+
+// Endpoint for verifying user login
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (user && user.password === password) {
+      res.json({ status: "success", user });
+    } else {
+      res
+        .status(400)
+        .json({ status: "error", message: "Incorrect credentials" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Server error" });
+  }
+});
+
+// Define a catch-all route to serve the React app in case of failure
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });

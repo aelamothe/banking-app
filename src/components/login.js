@@ -8,46 +8,40 @@ function Login() {
   const [status, setStatus] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const ctx = React.useContext(UserContext);
   const loggedInStatus = React.useContext(CurrentUser);
-  const userEmails = ctx.users.map((a) => a.email);
 
-  function validate(username, pass) {
-    let result = false;
-    let currUser = userEmails.indexOf(username);
-    console.log(currUser);
+  async function validate(email, password) {
     // check that fields have been populated
-    if (!username || !pass) {
+    if (!email || !password) {
       console.log("missing info");
       setStatus("Error: Enter all info");
       setTimeout(() => setStatus(""), 5000);
-      return false;
-    } else result = true;
-
-    // check that email exists
-    if (userEmails.indexOf(username) < 0) {
-      console.log("incorrect email");
-      setStatus("Error: Incorrect email");
-      setTimeout(() => setStatus(""), 5000);
-      return false;
-    } else {
-      console.log("email success");
-      result = true;
+      return;
     }
 
-    if (ctx.users[currUser].password !== pass) {
-      console.log("incorrect password");
-      setStatus("Error: Incorrect password");
-      setTimeout(() => setStatus(""), 5000);
-      return false;
-    } else {
-      console.log("password success");
-      result = true;
+    // check that email exists in our database
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        loggedInStatus.currUser = data.user.email;
+        console.log("Login successful");
+        setShow(false);
+      } else {
+        setStatus(data.message);
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setStatus("Server error");
     }
-    // update currentUser context once validated
-    loggedInStatus.currUser = email;
-    console.log(loggedInStatus.currUser);
-    return result;
   }
 
   function handleSubmit() {
@@ -55,7 +49,6 @@ function Login() {
     // return early if any of the validation checks fail
     if (!validate(email, password)) return;
 
-    console.log(ctx.users);
     // hide our initial form
     setShow(false);
   }
@@ -81,7 +74,7 @@ function Login() {
             Password
             <br />
             <input
-              type="input"
+              type="password"
               className="form-control"
               id="password"
               placeholder="Enter password"
