@@ -41,10 +41,10 @@ function Transaction(props) {
       );
 
       const data = await response.json();
-      console.log("Balance updated on server:", data);
+      console.log("Balance updated:", data);
     } catch (error) {
-      console.error("Error updating balance on server:", error);
-      setStatus("Error updating balance on server.");
+      console.error("Error updating balance:", error);
+      setStatus("Error updating balance.");
     }
   }
 

@@ -15,8 +15,8 @@ function App() {
   // shared context is our set of users
   return (
     <HashRouter>
-      <NavBar />
       <CurrentUser.Provider value={{ currUser: "" }}>
+        <NavBar />
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/CreateAccount" element={<CreateAccount />} />

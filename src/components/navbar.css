@@ -5,6 +5,11 @@
     text-align: center;
 }
 
+#welcome-user {
+    font-style: italic;
+    color: white;
+}
+
 nav {
     background: #DC1431;
     display: flex;

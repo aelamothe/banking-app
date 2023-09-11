@@ -1,13 +1,44 @@
-import React from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
+import { CurrentUser } from "./context";
 import "./navbar.css";
 import Tooltip from "./tooltip";
-import { useState } from "react";
 import logo from "./logo.png";
-import { UserContext, CurrentUser } from "./context";
 
 function NavBar() {
   const [active, setActive] = useState("");
+  const [welcome, setWelcome] = useState("Welcome!");
+  const loggedInStatus = useContext(CurrentUser);
+
+  // Determines which link was clicked on
   const handleClick = (event) => setActive(event.target.id);
+
+  // Fetch data
+  const fetchUserData = useCallback(async (email) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/users/${email}`);
+      const userData = await response.json();
+      console.log("API response:", userData); // Log the entire response to check its structure
+
+      if (userData && userData.name) {
+        setWelcome("Hello " + userData.name + "!");
+        console.log(userData);
+      } else {
+        console.error("User data does not have a name property:", userData);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }, []);
+
+  console.log("Initial logged in status:", loggedInStatus.currUser);
+
+  useEffect(() => {
+    console.log("useEffect has been triggered");
+    if (loggedInStatus && loggedInStatus.currUser) {
+      console.log("Logged in status:", loggedInStatus);
+      fetchUserData(loggedInStatus.currUser);
+    }
+  }, [fetchUserData, loggedInStatus.currUser]);
 
   return (
     <nav>
@@ -87,6 +118,9 @@ function NavBar() {
           </Tooltip>
         </div>
       </div>
+      <span id="welcome-user" className="ms-auto">
+        {welcome}
+      </span>
     </nav>
   );
 }
