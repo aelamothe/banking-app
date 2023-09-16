@@ -7,6 +7,7 @@ import logo from "./logo.png";
 function NavBar() {
   const [active, setActive] = useState("");
   const [welcome, setWelcome] = useState("Welcome!");
+  const [showLogout, setShowLogout] = useState(false);
   const loggedInStatus = useContext(CurrentUser);
 
   // Determines which link was clicked on
@@ -21,6 +22,7 @@ function NavBar() {
 
       if (userData && userData.name) {
         setWelcome("Hello " + userData.name + "!");
+        setShowLogout(true);
         console.log(userData);
       } else {
         console.error("User data does not have a name property:", userData);
@@ -39,6 +41,13 @@ function NavBar() {
       fetchUserData(loggedInStatus.currUser);
     }
   }, [fetchUserData, loggedInStatus.currUser]);
+
+  const handleLogOut = () => {
+    loggedInStatus.currUser = "";
+    console.log("logged out status: " + showLogout + loggedInStatus.currUser);
+    setWelcome("Welcome!");
+    setShowLogout(false);
+  };
 
   return (
     <nav>
@@ -120,6 +129,19 @@ function NavBar() {
       </div>
       <span id="welcome-user" className="ms-auto">
         {welcome}
+      </span>
+      <span>
+        {showLogout ? (
+          <a
+            href="#/CreateAccount"
+            className="btn btn-light"
+            onClick={handleLogOut}
+          >
+            Logout
+          </a>
+        ) : (
+          <></>
+        )}
       </span>
     </nav>
   );

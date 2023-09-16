@@ -4,8 +4,10 @@ import Card from "./card";
 function AllData() {
   const [users, setUsers] = useState([]);
   const gridStyles = {
+    textAlign: "left",
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateColumns: "2fr repeat(4, 1fr)",
+    columnGap: "1em",
   };
   const headerRow = {
     fontWeight: "bold",
@@ -54,6 +56,7 @@ function AllData() {
           <br />
           <div>
             <div style={gridStyles}>
+              <div style={headerRow}>ID</div>
               <div style={headerRow}>Name</div>
               <div style={headerRow}>Email</div>
               <div style={headerRow}>Password</div>
@@ -62,6 +65,7 @@ function AllData() {
             <br />
             {users.map((user, i) => (
               <div style={gridStyles} key={i}>
+                <div>{user._id}</div>
                 <div>{user.name}</div>
                 <div>{user.email}</div>
                 <div>{user.password}</div>

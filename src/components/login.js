@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
-import { UserContext, CurrentUser } from "./context";
+import { CurrentUser } from "./context";
 
 function Login() {
   const [show, setShow] = React.useState(true);
@@ -103,11 +103,6 @@ function Login() {
             <> </>
             <Link to="/withdraw" className="btn btn-light">
               Withdraw
-            </Link>
-            <br />
-            <br />
-            <Link to="/CreateAccount" className="btn btn-light">
-              Logout
             </Link>
           </>
         )

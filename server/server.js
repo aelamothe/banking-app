@@ -32,7 +32,7 @@ app.post("/api/users", async (req, res) => {
       name,
       email,
       password,
-      balance: 100, // You can set a default balance here
+      balance: 100,
     });
 
     await user.save();

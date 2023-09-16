@@ -6,6 +6,14 @@
   --tooltip-arrow-size: 6px;
 }
 
+/*card styling*/
+#card {
+  margin-top: 40px;
+  margin-left: 10%;
+  max-width: 80%;
+  text-align: center;
+}
+
 /* Wrapping */
 .Tooltip-Wrapper {
   display: inline-block;
