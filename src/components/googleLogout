@@ -1,0 +1,13 @@
+import GoogleLogin, { GoogleLogout } from "react-google-login";
+const client_id =
+  "614440106254-50kj27efhlrkmamgvg3vesvr4pk83cdr.apps.googleusercontent.com";
+
+function Logout() {
+  <div id="googleSignOut">
+    <GoogleLogout
+      client_id={client_id}
+      buttonText="Logout"
+      onLogoutSuccess={onSuccess}
+    />
+  </div>;
+}

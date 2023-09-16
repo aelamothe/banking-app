@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
 import { CurrentUser } from "./context";
+import GoogleLogin from "react-google-login";
+const client_id =
+  "614440106254-50kj27efhlrkmamgvg3vesvr4pk83cdr.apps.googleusercontent.com";
 
 function Login() {
   const [show, setShow] = React.useState(true);
@@ -42,6 +45,19 @@ function Login() {
       console.error("Error:", err);
       setStatus("Server error");
     }
+  }
+
+  function onSuccess(res) {
+    console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
+    loggedInStatus.currUser = res.profileObj.email;
+    setShow(false);
+    return;
+  }
+
+  function onFailure(res) {
+    console.log("LOGIN FAILED! res: ", res);
+    setStatus(res);
+    return;
   }
 
   function handleSubmit() {
@@ -89,6 +105,16 @@ function Login() {
             >
               Log In
             </button>
+            <div>
+              <GoogleLogin
+                clientId={client_id}
+                buttonText="Login with Google"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy="single_host_origin"
+                isSignedIn={true}
+              />
+            </div>
             <> </>
             <Link to="/CreateAccount" className="btn btn-light">
               Create Account

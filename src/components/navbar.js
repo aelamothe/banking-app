@@ -3,6 +3,9 @@ import { CurrentUser } from "./context";
 import "./navbar.css";
 import Tooltip from "./tooltip";
 import logo from "./logo.png";
+import GoogleLogout from "react-google-login";
+const client_id =
+  "614440106254-50kj27efhlrkmamgvg3vesvr4pk83cdr.apps.googleusercontent.com";
 
 function NavBar() {
   const [active, setActive] = useState("");
@@ -43,8 +46,8 @@ function NavBar() {
   }, [fetchUserData, loggedInStatus.currUser]);
 
   const handleLogOut = () => {
+    console.log("LOGOUT SUCCESSFUL");
     loggedInStatus.currUser = "";
-    console.log("logged out status: " + showLogout + loggedInStatus.currUser);
     setWelcome("Welcome!");
     setShowLogout(false);
   };
@@ -132,9 +135,18 @@ function NavBar() {
       </span>
       <span>
         {showLogout ? (
-          <a href="#/" className="btn btn-light" onClick={handleLogOut}>
-            Logout
-          </a>
+          <>
+            <a href="#/" className="btn btn-light" onClick={handleLogOut}>
+              Logout
+            </a>
+            <div id="googleSignOut">
+              <GoogleLogout
+                clientId={client_id}
+                buttonText="Logout"
+                onLogoutSuccess={handleLogOut}
+              />
+            </div>
+          </>
         ) : (
           <></>
         )}

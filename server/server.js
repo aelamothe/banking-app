@@ -17,6 +17,11 @@ app.use(express.json());
 // Serve static files from the 'build' folder
 app.use(express.static(path.join(__dirname, "../build")));
 
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Opener-Policy", "unsafe-none");
+  next();
+});
+
 // Add a POST route to create a new user
 app.post("/api/users", async (req, res) => {
   try {
