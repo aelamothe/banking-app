@@ -41,7 +41,8 @@ You can view the full website in production mode on [Amazon AWS](https://anastas
 - Future Features:
   - Enhanced Security: Implement additional security features (authentication/authorization) to protect user data.
   - Responsive Design: Improve the design to be fully responsive on all devices.
-  - Imrpoved Functionality: Improve functionality of linking in navbar so that highlighted links in NavBar update appropriately.
+  - Improved Functionality: Improve functionality of linking in navbar so that highlighted links in NavBar update appropriately.
+  - Accounts Page: Implement account settings for users to update personal information.
 
 ### License
 
