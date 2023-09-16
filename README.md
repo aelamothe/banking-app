@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Deployed Website
 
-You can view the full website in production mode on [Amazon AWS](https://anastasia-lamothefullstackbankingapplication.s3.amazonaws.com/index.html)
+You can view the full website in production mode on [Amazon AWS](https://anastasia-lamothefullstackbankingapplication.s3.amazonaws.com/index.html#)
 
 ### Installation Guidelines
 
