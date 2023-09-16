@@ -132,11 +132,7 @@ function NavBar() {
       </span>
       <span>
         {showLogout ? (
-          <a
-            href="#/CreateAccount"
-            className="btn btn-light"
-            onClick={handleLogOut}
-          >
+          <a href="#/" className="btn btn-light" onClick={handleLogOut}>
             Logout
           </a>
         ) : (
