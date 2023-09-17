@@ -1,0 +1,44 @@
+# FILE FOR BUILDING YOUR DOCKER IMAGE
+version: "3"
+
+# define services of our project (can use any name) and specify path to each
+services:
+  frontend:
+    build: ./
+    container_name: react-ui
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+
+  backend:
+    build: ./server
+    container_name: node-api
+    restart: always
+    ports:
+      - "5001:5000"
+    depends_on:
+      - database
+    networks:
+      - mern-network
+
+  # docker knows mongo so already has default image and ports
+  database:
+    image: mongo
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    # back up data outside container in case container fails
+    volumes:
+      - /Users/anastasialamothe/MITxPro_Coding/banking-app-mongobackup/banking-app-mongobackup:/data/db
+    networks:
+      - mern-network
+
+# create a network so that all sources can run on it
+networks:
+  mern-network:
+    driver: bridge

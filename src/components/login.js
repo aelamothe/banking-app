@@ -2,9 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
 import { CurrentUser } from "./context";
-import GoogleLogin from "react-google-login";
-const client_id =
-  "614440106254-50kj27efhlrkmamgvg3vesvr4pk83cdr.apps.googleusercontent.com";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
   const [show, setShow] = React.useState(true);
@@ -106,14 +104,7 @@ function Login() {
               Log In
             </button>
             <div>
-              <GoogleLogin
-                clientId={client_id}
-                buttonText="Login with Google"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy="single_host_origin"
-                isSignedIn={true}
-              />
+              <GoogleLogin onSuccess={onSuccess} onError={onFailure} />
             </div>
             <> </>
             <Link to="/CreateAccount" className="btn btn-light">

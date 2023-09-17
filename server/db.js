@@ -2,12 +2,10 @@
 const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 
-const uri =
-  "mongodb+srv://aelamothe:HyuPkyDt0ELbiNRr@anastasia-bankingapp.s8yjk2o.mongodb.net/users?retryWrites=true&w=majority";
-
 async function connectToDatabase() {
   try {
-    await mongoose.connect(uri, {
+    // connect to mongodb that lives in Docker host container
+    await mongoose.connect("mongodb://mongo-db/", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
