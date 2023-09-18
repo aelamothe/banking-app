@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "./card";
 import { CurrentUser } from "./context";
+<<<<<<< HEAD
 import { GoogleLogin } from "@react-oauth/google";
+=======
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
 
 function Login() {
   const [show, setShow] = React.useState(true);
@@ -43,19 +46,6 @@ function Login() {
       console.error("Error:", err);
       setStatus("Server error");
     }
-  }
-
-  function onSuccess(res) {
-    console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
-    loggedInStatus.currUser = res.profileObj.email;
-    setShow(false);
-    return;
-  }
-
-  function onFailure(res) {
-    console.log("LOGIN FAILED! res: ", res);
-    setStatus(res);
-    return;
   }
 
   function handleSubmit() {
@@ -103,9 +93,12 @@ function Login() {
             >
               Log In
             </button>
+<<<<<<< HEAD
             <div>
               <GoogleLogin onSuccess={onSuccess} onError={onFailure} />
             </div>
+=======
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
             <> </>
             <Link to="/CreateAccount" className="btn btn-light">
               Create Account

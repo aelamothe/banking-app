@@ -3,7 +3,10 @@ import { CurrentUser } from "./context";
 import "./navbar.css";
 import Tooltip from "./tooltip";
 import logo from "./logo.png";
+<<<<<<< HEAD
 import { googleLogout } from "@react-oauth/google";
+=======
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
 
 function NavBar() {
   const [active, setActive] = useState("");
@@ -44,8 +47,12 @@ function NavBar() {
   }, [fetchUserData, loggedInStatus.currUser]);
 
   const handleLogOut = () => {
+<<<<<<< HEAD
     googleLogout();
+=======
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
     loggedInStatus.currUser = "";
+    console.log("logged out status: " + showLogout + loggedInStatus.currUser);
     setWelcome("Welcome!");
     setShowLogout(false);
     console.log("LOGOUT SUCCESSFUL");
@@ -134,11 +141,17 @@ function NavBar() {
       </span>
       <span>
         {showLogout ? (
+<<<<<<< HEAD
           <>
             <a href="#/" className="btn btn-light" onClick={handleLogOut}>
               Logout
             </a>
           </>
+=======
+          <a href="#/" className="btn btn-light" onClick={handleLogOut}>
+            Logout
+          </a>
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
         ) : (
           <></>
         )}

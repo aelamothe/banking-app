@@ -10,6 +10,14 @@
     "@testing-library/user-event": "^13.5.0",
     "and": "^0.0.3",
     "bootstrap": "^5.3.1",
+<<<<<<< HEAD
+=======
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.0",
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",

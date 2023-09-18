@@ -1,6 +1,6 @@
 import "./App.css";
 import "./components/navbar.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { CurrentUser } from "./components/context";
 import AllData from "./components/alldata";
@@ -10,10 +10,13 @@ import Home from "./components/home";
 import Login from "./components/login";
 import NavBar from "./components/navbar";
 import Withdraw from "./components/withdraw";
+<<<<<<< HEAD
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const client_id =
   "614440106254-50kj27efhlrkmamgvg3vesvr4pk83cdr.apps.googleusercontent.com";
+=======
+>>>>>>> parent of 05a5d4d (Google Auth Login functionality added)
 
 function App() {
   // shared context is our set of users
