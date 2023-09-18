@@ -1,16 +1,23 @@
 {
-  "name": "banking-app-frontend",
+  "name": "banking-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
-    "@react-oauth/google": "^0.11.1",
     "@testing-library/user-event": "^13.5.0",
+    "@react-oauth/google": "0.11.1",
     "bootstrap": "^5.3.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "gapi-script": "^1.2.0",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
+    "react-google-login": "^5.2.2",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
@@ -19,7 +26,7 @@
     "yup": "^1.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -43,7 +50,7 @@
     ]
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "src/index.js",
+  "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC"
