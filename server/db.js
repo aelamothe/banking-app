@@ -1,9 +1,7 @@
 // connects to MongoDB database
-const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 
-const uri =
-  "mongodb+srv://aelamothe:HyuPkyDt0ELbiNRr@anastasia-bankingapp.s8yjk2o.mongodb.net/users?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URI;
 
 async function connectToDatabase() {
   try {

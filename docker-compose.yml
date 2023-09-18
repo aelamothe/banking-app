@@ -1,0 +1,9 @@
+version: "3"
+services:
+  react-app:
+    image: banking-application
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb+srv://aelamothe:HyuPkyDt0ELbiNRr@anastasia-bankingapp.s8yjk2o.mongodb.net/users?retryWrites=true&w=majority
