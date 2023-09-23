@@ -61,6 +61,7 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+// Endpoint to GET a specific user's data based on their email address
 app.get("/api/users/:email", async (req, res) => {
   try {
     const { email } = req.params;
