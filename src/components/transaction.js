@@ -14,7 +14,7 @@ function Transaction(props) {
 
   const fetchUserData = useCallback(async (email) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/${email}`);
+      const response = await fetch(`/api/users/${email}`);
       const userData = await response.json();
       setThisUser(userData);
     } catch (error) {
@@ -29,16 +29,13 @@ function Transaction(props) {
 
   async function updateBalance(email, newBalance) {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/users/updateBalance",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, newBalance }),
-        }
-      );
+      const response = await fetch("/api/users/updateBalance", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, newBalance }),
+      });
 
       const data = await response.json();
       console.log("Balance updated:", data);
