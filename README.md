@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Deployed Website
 
-You can view the full website in production mode on [Amazon AWS](https://anastasia-lamothefullstackbankingapplication.s3.amazonaws.com/index.html#)
+The full site is deployed on [Heroku](https://anastasia-lamothefullbankapp-e1b31bc0a03a.herokuapp.com/#/), using a Docker image. You can also run the site by following the Installation Guidelines below.
 
 ### Installation Guidelines
 
