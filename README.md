@@ -5,10 +5,10 @@ Bank of Anastasia is MERN (MongoDB, Express.js, React.js, Node.js) stack applica
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 For any overview of this project, its background, and a live demo, please see these videos and slide deck that I've created as part of the final presentation for this capstone project.
-[Anastasia_Lamothe_PresentationVideo1](https://www.loom.com/share/2bed0f85a5394b8aa06c63715e11fbdd?sid=e8e66545-5e8f-47cb-b8d6-c8013a4ed622)
-[Anastasia_Lamothe_PresentationVideo2](https://www.loom.com/share/6e2c5df4a4204fb489ed06bfe6442b73?sid=bb6156c1-7a8f-4842-ab5d-653e4a3cd664)
-[Anastasia_Lamothe_PresentationVideo3](https://www.loom.com/share/403cfc0d4e0f41f6bf4865e1fc460981?sid=da461b87-558f-4010-af68-bac0af2e4cf5)
-[Anastasia_Lamothe_Presentation](https://docs.google.com/presentation/d/1x55PXasFzKKdXC1NVu4rMLlDsZ52HjLUikV1XM0EOPM/edit?usp=sharing)
+* [Anastasia_Lamothe_PresentationVideo1](https://www.loom.com/share/2bed0f85a5394b8aa06c63715e11fbdd?sid=e8e66545-5e8f-47cb-b8d6-c8013a4ed622)
+* [Anastasia_Lamothe_PresentationVideo2](https://www.loom.com/share/6e2c5df4a4204fb489ed06bfe6442b73?sid=bb6156c1-7a8f-4842-ab5d-653e4a3cd664)
+* [Anastasia_Lamothe_PresentationVideo3](https://www.loom.com/share/403cfc0d4e0f41f6bf4865e1fc460981?sid=da461b87-558f-4010-af68-bac0af2e4cf5)
+* [Anastasia_Lamothe_Presentation](https://docs.google.com/presentation/d/1x55PXasFzKKdXC1NVu4rMLlDsZ52HjLUikV1XM0EOPM/edit?usp=sharing)
 
 ## Product Documentation
 
